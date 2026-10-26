@@ -5,7 +5,7 @@ crate_name: enshwick-survivors-per-altar
 description: A copy of each survivor at every Flame Altar, each with the bed of its
     own altar
 enshwick_version: 1.0.0-alpha.2
-mod_id: survivors-per-altar
+mod_id: enshwick.survivors-per-altar
 mod_name: Survivors per altar
 repository: enshwick/mod-survivors-per-altar
 side: both
