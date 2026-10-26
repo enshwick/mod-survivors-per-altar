@@ -285,11 +285,7 @@ mod tests {
             }
             if let Some(old) = staff.old {
                 assert!(ids.insert(old.id()), "{}", staff.key());
-                assert_eq!(
-                    copy_staff(old.id()).map(Staff::key),
-                    None,
-                    "only once the migration is declared"
-                );
+                assert!(known_ids().contains(&old.id()), "{}", staff.key());
             }
             let vanilla = staff.survivor.staff().id();
             assert_ne!(staff.copy.id(), vanilla);
