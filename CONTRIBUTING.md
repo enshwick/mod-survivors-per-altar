@@ -19,7 +19,7 @@ release instead, whose formatter fails to load.
 
 A package that builds only for Windows sets `windows-only = true` under
 `[package.metadata.enshwick]`. Off Windows it stays out of the host checks,
-and `cargo xtask check --windows` (or `--all`) runs its tests under Wine:
+and only `cargo xtask check --windows` runs its tests under Wine:
 directly on an amd64 Linux host that has Wine, otherwise in Docker, in an
 image built from `tools/wine/Dockerfile` on first use. On Apple silicon the
 container runs through Rosetta, which cannot run tests of crashes, detours,

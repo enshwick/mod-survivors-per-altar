@@ -30,10 +30,9 @@ const LOCK_TIMEOUT: Duration = Duration::from_mins(30);
 /// How long one test executable may run before its container is killed.
 const RUN_TIMEOUT: Duration = Duration::from_mins(10);
 
-/// Runs the tests of `packages` under Wine. Without a running Docker the step
-/// is skipped with a message, and fails only when it was asked for by name
-/// (`required`).
-pub(crate) fn run(packages: &[&str], required: bool) -> bool {
+/// Runs the tests of `packages` under Wine. Without Wine or a running Docker
+/// the step fails with a message.
+pub(crate) fn run(packages: &[&str]) -> bool {
     if packages.is_empty() {
         return true;
     }
@@ -46,11 +45,10 @@ pub(crate) fn run(packages: &[&str], required: bool) -> bool {
     }
     if !docker_ready() {
         say(&format!(
-            "docker is not running: the tests of {} under Wine are {}",
-            packages.join(", "),
-            if required { "required" } else { "skipped" }
+            "docker is not running: the tests of {} under Wine cannot run",
+            packages.join(", ")
         ));
-        return !required;
+        return false;
     }
     // Several amd64 containers under Rosetta at once have hung the Docker
     // daemon: one run at a time on the machine.

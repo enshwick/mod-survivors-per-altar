@@ -5,9 +5,9 @@
 //! the tests and the doctests run on the host, where the packages that build
 //! only for Windows (`[package.metadata.enshwick] windows-only = true`) stay
 //! out; off Windows clippy also runs for Windows through `cargo xwin`,
-//! beside the host checks. `--windows` runs the Windows-only packages' tests
-//! under Wine, and `--all` adds formatting, rustdoc, cargo-deny and those
-//! tests.
+//! beside the host checks. `--all` adds formatting, rustdoc and cargo-deny.
+//! Only `--windows` runs the Windows-only packages' tests under Wine; CI runs
+//! them natively on Windows.
 //!
 //! `cargo xtask dist` builds the release DLLs and writes what a player
 //! downloads: `<package>.zip` with `mods/<package>.dll` and the license, and
@@ -60,13 +60,13 @@ fn run(args: &[String]) -> Result<bool, String> {
     }
     let packages = packages()?;
     let mut ok = check(&packages, all);
-    if ok && (all || windows) {
+    if ok && windows {
         let windows_only: Vec<&str> = packages
             .iter()
             .filter(|p| p.windows_only)
             .map(|p| p.name.as_str())
             .collect();
-        ok = windows_only.is_empty() || wine::run(&windows_only, windows);
+        ok = windows_only.is_empty() || wine::run(&windows_only);
     }
     Ok(ok)
 }
