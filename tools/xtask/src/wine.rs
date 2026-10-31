@@ -30,8 +30,8 @@ const LOCK_TIMEOUT: Duration = Duration::from_mins(30);
 /// How long one test executable may run before its container is killed.
 const RUN_TIMEOUT: Duration = Duration::from_mins(10);
 
-/// Runs the tests of `packages` under Wine. Without Wine or a running Docker
-/// the step fails with a message.
+/// Runs the tests of `packages` under Wine. With neither Wine nor a running
+/// Docker, the step fails with a message.
 pub(crate) fn run(packages: &[&str]) -> bool {
     if packages.is_empty() {
         return true;
