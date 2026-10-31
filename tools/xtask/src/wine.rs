@@ -4,7 +4,7 @@
 //! `cargo xwin test` builds them, and cargo hands every test executable,
 //! doctests included, to `cargo xtask wine-run`, which runs it in the image
 //! built from `tools/wine/Dockerfile`. On an amd64 Linux host with Wine
-//! installed, as on CI, the tests run under that Wine directly. Under Apple
+//! installed, the tests run under that Wine directly. Under Apple
 //! silicon the container runs
 //! through Rosetta, which cannot emulate exception unwinding, stack walks,
 //! thread suspension or code patching; those tests are skipped there and run
