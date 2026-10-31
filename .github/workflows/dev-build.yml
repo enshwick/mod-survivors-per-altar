@@ -29,7 +29,6 @@ concurrency:
 
 jobs:
   build:
-    # main: the organization runners run only workflows from main.
     uses: enshwick/.github/.github/workflows/mod-dev-build.yml@main # zizmor: ignore[unpinned-uses]
     permissions:
       contents: write
